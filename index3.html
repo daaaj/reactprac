@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <!-- react js / react dom import -->
+    <!-- react dom 역할
+         react element를 가져다가 html로 바꾸는 역할 -->
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+    <script type="text/babel">
+        
+        function Btn({text, fontSize = 12}) {
+            // Btn(props) or Btn({banana}) 로도 가넝
+            // props는 유일한 argument(인자)다 = props는 객체
+            // props, secendprops (X) = 두번째 argument는 없다
+            // console.log(text , fontSize);
+            return (
+                <button 
+                    style={{
+                        backgroundColor: 'tomato',
+                        color: 'white',
+                        padding: '10px 20px',
+                        border: 0,
+                        borderRadius: 10,
+                        fontSize,
+                    }}
+                >
+                    {text} 
+                </button>
+            );
+        } 
+
+        // const MemorizedBtn = React.memo(Btn)
+        // prop인 애들 타입 지정해주기~ 그러면 틀렸는지 확인 가넝~~
+        Btn.propTypes = {
+            text: PropTypes.string.isRequired,
+            fontSize: PropTypes.number
+        }
+        function App() {
+            /*
+            const [value, setValue] = React.useState("Save Changes");
+            const changeValue = () => setValue("Revert Change");
+            return (
+                <div>
+                    <MemorizedBtn text={value} onClick={changeValue} />
+                    <MemorizedBtn text="Continue" />
+                </div>
+            );
+            */
+            // banana="Save Changes" 라고 사용하는건 Btn( {banana='Save Changes'} )와 같다
+            // text="" 변경함
+            // **여기서 onClick은 eventListener가 아니고 
+            //   prop의 이름일 뿐이고 Btn안으로 전달되고 있는거다!!
+            //   위에 Btn함수의 button 안에다 onClick을 하면 이게 이벤트리스너
+            //   여기는 커스텀 컴포넌트
+
+            return (
+                <div>
+                    <Btn text="Save Changes" fontSize={18} />
+                    <Btn text={"Continue"} />
+                </div>
+            );
+
+
+
+
+        };
+
+        const root = document.getElementById("root");
+        ReactDOM.render(<App />, root);
+
+    </script>
+</html>
